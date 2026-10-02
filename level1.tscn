@@ -1,0 +1,48 @@
+[gd_scene format=4 uid="uid://cxc3c6dbhili6"]
+
+[ext_resource type="TileSet" uid="uid://dw8bckydmi4ij" path="res://default_tile_set.tres" id="1_v8kj3"]
+[ext_resource type="Texture2D" uid="uid://b514se7wt57dn" path="res://sprites/tiles/680.png" id="2_crycw"]
+[ext_resource type="Script" uid="uid://cykixw57lw5e" path="res://player.gd" id="3_i2041"]
+[ext_resource type="Texture2D" uid="uid://cn1vk8wq6aa2d" path="res://sprites/tanks/1058.png" id="4_xy4tn"]
+[ext_resource type="Texture2D" uid="uid://dtd0udglpkry0" path="res://sprites/tanks/1061.png" id="5_usj0q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(41, 44)
+
+[node name="Node2D" type="Node2D" unique_id=2052694540]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=301988762]
+z_index = 1
+tile_map_data = PackedByteArray("AAABAAAAAAACAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAACAAAAAAADAAAAAAADAAAAAAACAAAAAAAFAAAAAAADAAAAAAAEAAAAAAADAAAAAAAGAAAAAAABAAAAAAAHAAAAAAADAAAAAAAIAAAAAAABAAAAAAAJAAAAAAADAAAAAAAKAAAAAAABAAAAAAALAAAAAAADAAAAAAD+//z/AAADAAAAAAD+//3/AAACAAAAAAD+//7/AAADAAAAAAD+////AAABAAAAAAD///z/AAABAAAAAAAAAPz/AAACAAAAAAABAPz/AAABAAAAAAACAPz/AAACAAAAAAADAPz/AAADAAAAAAAEAPz/AAACAAAAAAAFAPz/AAACAAAAAAAGAPz/AAACAAAAAAAHAPz/AAABAAAAAAAIAPz/AAACAAAAAAAJAPz/AAACAAAAAAAKAPz/AAACAAAAAAALAPz/AAABAAAAAAAMAPz/AAABAAAAAAAMAP3/AAADAAAAAAAMAP7/AAACAAAAAAAMAP//AAADAAAAAAAMAAAAAAACAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AAAAAAAAAAA=")
+tile_set = ExtResource("1_v8kj3")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1182429939]
+z_index = -2
+offset_left = -103.0
+offset_top = -214.0
+offset_right = 700.0
+offset_bottom = 54.0
+texture = ExtResource("2_crycw")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1836192157 node_paths=PackedStringArray("turrets")]
+position = Vector2(7, -89)
+script = ExtResource("3_i2041")
+turrets = [NodePath("Minigun")]
+metadata/_edit_group_ = true
+
+[node name="Body" type="Sprite2D" parent="Player" unique_id=1690825011]
+texture = ExtResource("4_xy4tn")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=663910797]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[node name="Minigun" type="Sprite2D" parent="Player" unique_id=137643586]
+rotation = -0.101229094
+texture = ExtResource("5_usj0q")
+offset = Vector2(6, 0)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1931159204]
