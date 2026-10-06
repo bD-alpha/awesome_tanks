@@ -4,7 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://b514se7wt57dn" path="res://sprites/tiles/680.png" id="2_crycw"]
 [ext_resource type="Script" uid="uid://cykixw57lw5e" path="res://player.gd" id="3_i2041"]
 [ext_resource type="Texture2D" uid="uid://cn1vk8wq6aa2d" path="res://sprites/tanks/1058.png" id="4_xy4tn"]
+[ext_resource type="Script" uid="uid://ca6otl2bpibw0" path="res://projectile_turret.gd" id="5_crycw"]
+[ext_resource type="Texture2D" uid="uid://yac0skoicfpq" path="res://sprites/tanks/1098.png" id="5_i2041"]
 [ext_resource type="Texture2D" uid="uid://dtd0udglpkry0" path="res://sprites/tanks/1061.png" id="5_usj0q"]
+[ext_resource type="Script" uid="uid://c6togoyeprr38" path="res://camera.gd" id="6_crycw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(41, 44)
@@ -28,6 +31,8 @@ stretch_mode = 1
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1836192157 node_paths=PackedStringArray("turrets")]
 position = Vector2(7, -89)
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("3_i2041")
 turrets = [NodePath("Minigun")]
 metadata/_edit_group_ = true
@@ -40,9 +45,27 @@ flip_h = true
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_4kxuq")
 
-[node name="Minigun" type="Sprite2D" parent="Player" unique_id=137643586]
+[node name="Minigun" type="Sprite2D" parent="Player" unique_id=137643586 node_paths=PackedStringArray("muzzle")]
 rotation = -0.101229094
 texture = ExtResource("5_usj0q")
 offset = Vector2(6, 0)
+script = ExtResource("5_crycw")
+damage = 5.0
+projectile_speed = 300.0
+distance = 200.0
+projectile_texture = ExtResource("5_i2041")
+id = &"minigun"
+muzzle = [NodePath("Right"), NodePath("Left")]
+reload = 0.1
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1931159204]
+[node name="Right" type="Marker2D" parent="Player/Minigun" unique_id=29425548]
+position = Vector2(24, 5)
+
+[node name="Left" type="Marker2D" parent="Player/Minigun" unique_id=622710874]
+position = Vector2(24, -4)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1931159204 node_paths=PackedStringArray("player")]
+position = Vector2(7, -89)
+script = ExtResource("6_crycw")
+player = NodePath("../Player")

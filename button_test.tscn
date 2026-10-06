@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://8id2axt7i88f"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_wtl45"]
+
+[node name="Node2D" type="Node2D" unique_id=778057685]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2066881748]
+offset_right = 163.0
+offset_bottom = 123.0
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=2115355415]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_wtl45")
+text = "1"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1909773114]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_wtl45")
+text = "2"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=369056042]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_wtl45")
+text = "3"

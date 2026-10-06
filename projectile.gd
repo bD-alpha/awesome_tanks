@@ -1,5 +1,5 @@
 class_name Projectile
-extends PhysicsBody2D
+extends CharacterBody2D
 
 var damage: float
 var speed: float
@@ -9,22 +9,22 @@ var distance: float
 var distance_travelled: float = 0 
 
 func _init() -> void:
-	pass
+	var collision_shape = CollisionShape2D.new()
+	collision_shape.shape = CircleShape2D.new()
+	collision_shape.shape.radius = 1
+	add_child(collision_shape)
 
 func _ready() -> void:
 	pass
-	
-	
-	
+
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(direction * speed * delta)
 	if collision:
-		pass
+		queue_free()
 	else:
 		distance_travelled += speed * delta
 		if distance_travelled >= distance:
 			expire()
-	
 
 func _process(delta: float) -> void:
 	pass
