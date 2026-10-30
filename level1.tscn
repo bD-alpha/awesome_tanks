@@ -10,6 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://yac0skoicfpq" path="res://sprites/tanks/1098.png" id="5_i2041"]
 [ext_resource type="Texture2D" uid="uid://dtd0udglpkry0" path="res://sprites/tanks/1061.png" id="5_usj0q"]
 [ext_resource type="Script" uid="uid://c6togoyeprr38" path="res://camera.gd" id="6_crycw"]
+[ext_resource type="Script" uid="uid://x6nup5k80ygq" path="res://enemy.gd" id="11_beq0j"]
+[ext_resource type="Texture2D" uid="uid://ufo6clbcxppv" path="res://sprites/tanks/1221.png" id="12_nauge"]
+[ext_resource type="Texture2D" uid="uid://dmhkdp3oykeon" path="res://sprites/tanks/1183.png" id="13_ycv2e"]
+[ext_resource type="Script" uid="uid://3ixpf62bt4tb" path="res://health.gd" id="14_c5gc3"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="15_6e4cv"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="16_uuy0h"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="17_52iny"]
+[ext_resource type="Script" uid="uid://dnrnb3jiwtrr5" path="res://enemy_state_roam.gd" id="18_nxqqj"]
 
 [sub_resource type="Resource" id="Resource_3ux7g"]
 script = ExtResource("3_5j5gb")
@@ -109,3 +117,61 @@ scale = Vector2(0.99999994, 0.99999994)
 position = Vector2(7, -89)
 script = ExtResource("6_crycw")
 player = NodePath("../Player")
+
+[node name="MinigunEnemy" type="CharacterBody2D" parent="." unique_id=488164575]
+position = Vector2(272, -80)
+script = ExtResource("11_beq0j")
+
+[node name="Body" type="Sprite2D" parent="MinigunEnemy" unique_id=1951490234]
+texture = ExtResource("12_nauge")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MinigunEnemy" unique_id=1567566690]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[node name="Minigun" type="Sprite2D" parent="MinigunEnemy" unique_id=1309577756 node_paths=PackedStringArray("muzzle")]
+rotation = -0.101229094
+texture = ExtResource("13_ycv2e")
+offset = Vector2(6, 0)
+script = ExtResource("5_crycw")
+damage = 5.0
+projectile_speed = 300.0
+distance = 200.0
+projectile_texture = ExtResource("5_i2041")
+id = &"minigun"
+muzzle = [NodePath("Right"), NodePath("Left")]
+reload = 0.1
+
+[node name="Right" type="Marker2D" parent="MinigunEnemy/Minigun" unique_id=980234450]
+position = Vector2(24, 5)
+
+[node name="Left" type="Marker2D" parent="MinigunEnemy/Minigun" unique_id=435669520]
+position = Vector2(24, -4)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="Health" type="Node" parent="MinigunEnemy" unique_id=1580927510]
+script = ExtResource("14_c5gc3")
+max_value = 22.0
+metadata/_custom_type_script = "uid://3ixpf62bt4tb"
+
+[node name="StateChart" type="Node" parent="MinigunEnemy" unique_id=953422814]
+script = ExtResource("15_6e4cv")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="MinigunEnemy/StateChart" unique_id=722702646]
+script = ExtResource("16_uuy0h")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Idle" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=1543863329]
+script = ExtResource("17_52iny")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Roam" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=1966307359]
+script = ExtResource("18_nxqqj")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Chase" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=228412661]
+script = ExtResource("17_52iny")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
