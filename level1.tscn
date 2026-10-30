@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://q1f3fgfu3e4i" path="res://wall_group.gd" id="3_5j5gb"]
 [ext_resource type="Script" uid="uid://cykixw57lw5e" path="res://player.gd" id="3_i2041"]
 [ext_resource type="Texture2D" uid="uid://cn1vk8wq6aa2d" path="res://sprites/tanks/1058.png" id="4_xy4tn"]
+[ext_resource type="Script" uid="uid://hgq16rmqst8d" path="res://tank.gd" id="5_1idop"]
 [ext_resource type="Script" uid="uid://ca6otl2bpibw0" path="res://projectile_turret.gd" id="5_crycw"]
 [ext_resource type="Texture2D" uid="uid://yac0skoicfpq" path="res://sprites/tanks/1098.png" id="5_i2041"]
 [ext_resource type="Texture2D" uid="uid://dtd0udglpkry0" path="res://sprites/tanks/1061.png" id="5_usj0q"]
 [ext_resource type="Script" uid="uid://c6togoyeprr38" path="res://camera.gd" id="6_crycw"]
-[ext_resource type="Script" uid="uid://x6nup5k80ygq" path="res://enemy.gd" id="11_beq0j"]
 [ext_resource type="Texture2D" uid="uid://ufo6clbcxppv" path="res://sprites/tanks/1221.png" id="12_nauge"]
 [ext_resource type="Texture2D" uid="uid://dmhkdp3oykeon" path="res://sprites/tanks/1183.png" id="13_ycv2e"]
 [ext_resource type="Script" uid="uid://3ixpf62bt4tb" path="res://health.gd" id="14_c5gc3"]
@@ -27,15 +27,23 @@ metadata/_custom_type_script = "uid://q1f3fgfu3e4i"
 script = ExtResource("3_5j5gb")
 metadata/_custom_type_script = "uid://q1f3fgfu3e4i"
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8b3pp"]
+vertices = PackedVector2Array(98, -10, -44, -10, -44, -152, 98, -152, 368, -10, 172, -10, 172, -152, 368, -152, 638, -10, 442, -10, 442, -152, 638, -152)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-105, -221, 704, -212, 703, 58, -109, 56)])
+parsed_geometry_type = 1
+source_geometry_mode = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(41, 44)
 
 [node name="Node2D" type="Node2D" unique_id=2052694540]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=301988762]
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=301988762 groups=["navigation_polygon_source_geometry_group"]]
 z_index = 1
 tile_map_data = PackedByteArray("AAABAAAAAAACAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAACAAAAAAADAAAAAAADAAAAAAACAAAAAAAFAAAAAAADAAAAAAAEAAAAAAADAAAAAAAGAAAAAAABAAAAAAAHAAAAAAADAAAAAAAIAAAAAAABAAAAAAAJAAAAAAADAAAAAAAKAAAAAAABAAAAAAALAAAAAAADAAAAAAD+//z/AAADAAAAAAD+//3/AAACAAAAAAD+//7/AAADAAAAAAD+////AAABAAAAAAD///z/AAABAAAAAAAAAPz/AAACAAAAAAABAPz/AAABAAAAAAACAPz/AAACAAAAAAADAPz/AAADAAAAAAAEAPz/AAACAAAAAAAFAPz/AAACAAAAAAAGAPz/AAACAAAAAAAHAPz/AAABAAAAAAAIAPz/AAACAAAAAAAJAPz/AAACAAAAAAAKAPz/AAACAAAAAAALAPz/AAABAAAAAAAMAPz/AAABAAAAAAAMAP3/AAADAAAAAAAMAP7/AAACAAAAAAAMAP//AAADAAAAAAAMAAAAAAACAAAAAAA=")
 tile_set = ExtResource("1_v8kj3")
+navigation_visibility_mode = 1
 
 [node name="StaticBody2D" parent="TileMapLayer" unique_id=1220403920 instance=ExtResource("2_usj0q")]
 position = Vector2(135, -135)
@@ -67,6 +75,9 @@ position = Vector2(405, -27)
 group = SubResource("Resource_mx85b")
 metadata/_scene_painted = true
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMapLayer" unique_id=791381946]
+navigation_polygon = SubResource("NavigationPolygon_8b3pp")
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1182429939]
 z_index = -2
 offset_left = -103.0
@@ -77,13 +88,16 @@ texture = ExtResource("2_crycw")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1836192157 node_paths=PackedStringArray("turrets")]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1836192157]
 position = Vector2(7, -89)
 collision_layer = 2
 collision_mask = 7
-script = ExtResource("3_i2041")
-turrets = [NodePath("Minigun")]
+script = ExtResource("5_1idop")
 metadata/_edit_group_ = true
+
+[node name="PlayerController" type="Node" parent="Player" unique_id=993571495 node_paths=PackedStringArray("turrets")]
+script = ExtResource("3_i2041")
+turrets = [NodePath("../Minigun")]
 
 [node name="Body" type="Sprite2D" parent="Player" unique_id=1690825011]
 texture = ExtResource("4_xy4tn")
@@ -118,9 +132,10 @@ position = Vector2(7, -89)
 script = ExtResource("6_crycw")
 player = NodePath("../Player")
 
-[node name="MinigunEnemy" type="CharacterBody2D" parent="." unique_id=488164575]
+[node name="MinigunEnemy" type="CharacterBody2D" parent="." unique_id=488164575 node_paths=PackedStringArray("turret")]
 position = Vector2(272, -80)
-script = ExtResource("11_beq0j")
+script = ExtResource("5_1idop")
+turret = NodePath("Minigun")
 
 [node name="Body" type="Sprite2D" parent="MinigunEnemy" unique_id=1951490234]
 texture = ExtResource("12_nauge")
@@ -155,21 +170,25 @@ script = ExtResource("14_c5gc3")
 max_value = 22.0
 metadata/_custom_type_script = "uid://3ixpf62bt4tb"
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="MinigunEnemy" unique_id=1248324027]
+
 [node name="StateChart" type="Node" parent="MinigunEnemy" unique_id=953422814]
 script = ExtResource("15_6e4cv")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Root" type="Node" parent="MinigunEnemy/StateChart" unique_id=722702646]
 script = ExtResource("16_uuy0h")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Roam")
 metadata/_custom_type_script = "uid://jk2jm1g6q853"
 
 [node name="Idle" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=1543863329]
 script = ExtResource("17_52iny")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
-[node name="Roam" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=1966307359]
+[node name="Roam" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=1966307359 node_paths=PackedStringArray("tank", "navigator")]
 script = ExtResource("18_nxqqj")
+tank = NodePath("../../..")
+navigator = NodePath("../../../NavigationAgent2D")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 
 [node name="Chase" type="Node" parent="MinigunEnemy/StateChart/Root" unique_id=228412661]

@@ -12,8 +12,12 @@ signal on_shoot(object: Node2D)
 
 var _reload_timer: float = 0.0
 
-func _process(delta: float) -> void:
-	if Input.is_action_pressed("fire") and _reload_timer <= 0:
+func try_shoot() -> bool:
+	if _reload_timer <= 0:
 		_reload_timer = reload
 		shoot()
+		return true
+	return false
+
+func _process(delta: float) -> void:
 	_reload_timer -= delta
