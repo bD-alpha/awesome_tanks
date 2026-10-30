@@ -2,12 +2,22 @@
 
 [ext_resource type="TileSet" uid="uid://dw8bckydmi4ij" path="res://default_tile_set.tres" id="1_v8kj3"]
 [ext_resource type="Texture2D" uid="uid://b514se7wt57dn" path="res://sprites/tiles/680.png" id="2_crycw"]
+[ext_resource type="PackedScene" uid="uid://d1g68s5qujb8v" path="res://yellow_wall.tscn" id="2_usj0q"]
+[ext_resource type="Script" uid="uid://q1f3fgfu3e4i" path="res://wall_group.gd" id="3_5j5gb"]
 [ext_resource type="Script" uid="uid://cykixw57lw5e" path="res://player.gd" id="3_i2041"]
 [ext_resource type="Texture2D" uid="uid://cn1vk8wq6aa2d" path="res://sprites/tanks/1058.png" id="4_xy4tn"]
 [ext_resource type="Script" uid="uid://ca6otl2bpibw0" path="res://projectile_turret.gd" id="5_crycw"]
 [ext_resource type="Texture2D" uid="uid://yac0skoicfpq" path="res://sprites/tanks/1098.png" id="5_i2041"]
 [ext_resource type="Texture2D" uid="uid://dtd0udglpkry0" path="res://sprites/tanks/1061.png" id="5_usj0q"]
 [ext_resource type="Script" uid="uid://c6togoyeprr38" path="res://camera.gd" id="6_crycw"]
+
+[sub_resource type="Resource" id="Resource_3ux7g"]
+script = ExtResource("3_5j5gb")
+metadata/_custom_type_script = "uid://q1f3fgfu3e4i"
+
+[sub_resource type="Resource" id="Resource_mx85b"]
+script = ExtResource("3_5j5gb")
+metadata/_custom_type_script = "uid://q1f3fgfu3e4i"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(41, 44)
@@ -16,8 +26,38 @@ size = Vector2(41, 44)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=301988762]
 z_index = 1
-tile_map_data = PackedByteArray("AAABAAAAAAACAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAACAAAAAAADAAAAAAADAAAAAAACAAAAAAAFAAAAAAADAAAAAAAEAAAAAAADAAAAAAAGAAAAAAABAAAAAAAHAAAAAAADAAAAAAAIAAAAAAABAAAAAAAJAAAAAAADAAAAAAAKAAAAAAABAAAAAAALAAAAAAADAAAAAAD+//z/AAADAAAAAAD+//3/AAACAAAAAAD+//7/AAADAAAAAAD+////AAABAAAAAAD///z/AAABAAAAAAAAAPz/AAACAAAAAAABAPz/AAABAAAAAAACAPz/AAACAAAAAAADAPz/AAADAAAAAAAEAPz/AAACAAAAAAAFAPz/AAACAAAAAAAGAPz/AAACAAAAAAAHAPz/AAABAAAAAAAIAPz/AAACAAAAAAAJAPz/AAACAAAAAAAKAPz/AAACAAAAAAALAPz/AAABAAAAAAAMAPz/AAABAAAAAAAMAP3/AAADAAAAAAAMAP7/AAACAAAAAAAMAP//AAADAAAAAAAMAAAAAAACAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAAHAP3/AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP//AAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAABAAAAAAACAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAACAAAAAAADAAAAAAADAAAAAAACAAAAAAAFAAAAAAADAAAAAAAEAAAAAAADAAAAAAAGAAAAAAABAAAAAAAHAAAAAAADAAAAAAAIAAAAAAABAAAAAAAJAAAAAAADAAAAAAAKAAAAAAABAAAAAAALAAAAAAADAAAAAAD+//z/AAADAAAAAAD+//3/AAACAAAAAAD+//7/AAADAAAAAAD+////AAABAAAAAAD///z/AAABAAAAAAAAAPz/AAACAAAAAAABAPz/AAABAAAAAAACAPz/AAACAAAAAAADAPz/AAADAAAAAAAEAPz/AAACAAAAAAAFAPz/AAACAAAAAAAGAPz/AAACAAAAAAAHAPz/AAABAAAAAAAIAPz/AAACAAAAAAAJAPz/AAACAAAAAAAKAPz/AAACAAAAAAALAPz/AAABAAAAAAAMAPz/AAABAAAAAAAMAP3/AAADAAAAAAAMAP7/AAACAAAAAAAMAP//AAADAAAAAAAMAAAAAAACAAAAAAA=")
 tile_set = ExtResource("1_v8kj3")
+
+[node name="StaticBody2D" parent="TileMapLayer" unique_id=1220403920 instance=ExtResource("2_usj0q")]
+position = Vector2(135, -135)
+group = SubResource("Resource_3ux7g")
+metadata/_scene_painted = true
+
+[node name="StaticBody2D2" parent="TileMapLayer" unique_id=478564062 instance=ExtResource("2_usj0q")]
+position = Vector2(135, -81)
+group = SubResource("Resource_3ux7g")
+metadata/_scene_painted = true
+
+[node name="StaticBody2D3" parent="TileMapLayer" unique_id=204395762 instance=ExtResource("2_usj0q")]
+position = Vector2(135, -27)
+group = SubResource("Resource_3ux7g")
+metadata/_scene_painted = true
+
+[node name="StaticBody2D4" parent="TileMapLayer" unique_id=1988774890 instance=ExtResource("2_usj0q")]
+position = Vector2(405, -135)
+group = SubResource("Resource_mx85b")
+metadata/_scene_painted = true
+
+[node name="StaticBody2D5" parent="TileMapLayer" unique_id=1548010659 instance=ExtResource("2_usj0q")]
+position = Vector2(405, -81)
+group = SubResource("Resource_mx85b")
+metadata/_scene_painted = true
+
+[node name="StaticBody2D6" parent="TileMapLayer" unique_id=1509773173 instance=ExtResource("2_usj0q")]
+position = Vector2(405, -27)
+group = SubResource("Resource_mx85b")
+metadata/_scene_painted = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1182429939]
 z_index = -2

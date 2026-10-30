@@ -20,6 +20,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(direction * speed * delta)
 	if collision:
+		if collision.get_collider().has_node("Health"):
+			var health: Health = collision.get_collider().get_node("Health")
+			health.damage(damage)
 		queue_free()
 	else:
 		distance_travelled += speed * delta

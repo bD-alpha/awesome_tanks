@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d1g68s5qujb8v"]
+
+[ext_resource type="Script" uid="uid://bm7i7tt1i723j" path="res://wall.gd" id="1_3ux7g"]
+[ext_resource type="Texture2D" uid="uid://c4wybc2a0d2jp" path="res://sprites/tiles/447.png" id="1_7u13r"]
+[ext_resource type="Shader" uid="uid://bxsp1vxb7lk1" path="res://wall_cracks.tres" id="1_ousuy"]
+[ext_resource type="Script" uid="uid://3ixpf62bt4tb" path="res://health.gd" id="2_3ux7g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5j5gb"]
+shader = ExtResource("1_ousuy")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(54, 54)
+
+[node name="YellowWall" type="StaticBody2D" unique_id=1220403920]
+material = SubResource("ShaderMaterial_5j5gb")
+script = ExtResource("1_3ux7g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=912718077]
+material = SubResource("ShaderMaterial_5j5gb")
+texture = ExtResource("1_7u13r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=87005779]
+visible = false
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[node name="Health" type="Node" parent="." unique_id=1343698351]
+script = ExtResource("2_3ux7g")
+max_value = 100.0
+metadata/_custom_type_script = "uid://3ixpf62bt4tb"
+
+[connection signal="damaged" from="Health" to="." method="update_cracks"]
+[connection signal="depleted" from="Health" to="." method="queue_free"]
